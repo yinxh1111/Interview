@@ -2,7 +2,7 @@
  * @Author: yxh
  * @Date: 2020-08-02 23:15:50
  * @LastEditors: yxh
- * @LastEditTime: 2020-08-08 21:28:16
+ * @LastEditTime: 2020-08-08 22:08:22
  * @Description: 
 -->
 配置别名
@@ -26,4 +26,15 @@ M lib/simplegit.rb  修改过并已暂存
 2. 查看工作区与暂存区差异  
 git diff
 3. 跳过暂存区直接提交   
-git commit -a -m "message"  或者简写为 git commit -am "message"
+git commit -a -m "message"  或者简写为 git commit -am "message"     
+4. 合并多个commit提交说明日志  
+git rebase -i #哈希值   
+5. 取消暂存区的文件     
+git reset HEAD filename
+6. 取消工作区的文件  
+git checkout -- filename
+7. 回退的某个commit  
+git rest --soft #hash 或者 git reset --hard #hash (前者会保留commit信息,后者不会保留中间的commit信息)
+8. 查看哪些分支合并到了当前分支  
+git branch --merged
+9. 将本地分支推送到远程分支
