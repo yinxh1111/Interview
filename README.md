@@ -2,7 +2,7 @@
  * @Author: yxh
  * @Date: 2020-08-02 23:15:50
  * @LastEditors: yxh
- * @LastEditTime: 2020-08-08 22:25:25
+ * @LastEditTime: 2020-08-08 22:49:04
  * @Description: 
 -->
 配置别名
@@ -39,4 +39,11 @@ git checkout -- filename
 git rest --soft #hash 或者 git reset --hard #hash (前者会保留commit信息,后者不会保留中间的commit信息)
 8. 查看哪些分支合并到了当前分支  
 git branch --merged
-9. 将本地分支推送到远程分支
+9. 将本地分支推送到远程分支  
+git push origin local-branch:feature-branch
+10. 将远程分支拉取到本地分支        
+git checkout -b local-branch origin/feature-branch
+11. 修改最近的commit信息        
+git commit --amend
+12. 本地所有分支推送到远程仓库  
+git push --all origin
