@@ -2,7 +2,7 @@
  * @Author: yxh
  * @Date: 2020-08-02 23:15:50
  * @LastEditors: yxh
- * @LastEditTime: 2020-08-08 22:08:22
+ * @LastEditTime: 2020-08-08 22:25:25
  * @Description: 
 -->
 配置别名
@@ -10,7 +10,9 @@
 克隆远程仓库并自定义本地仓库名字  
 ```git clone https://github.com/libgit2/libgit2  mylibgit```  
 本地项目与远程项目进行关联  
-```git remote add origin git@github.com:FrontDream/FrontDream.github.io.git```
+```git remote add origin git@github.com:FrontDream/FrontDream.github.io.git```  
+本地项目与远程项目取消关联  
+```git remote remove origin```
 ## git常用命令
 1. 查看工作区与暂存区的状态
 
