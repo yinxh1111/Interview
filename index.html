@@ -1,0 +1,25 @@
+<!--
+ * @Author: yxh
+ * @Date: 2020-08-17 21:59:00
+ * @LastEditors: yxh
+ * @LastEditTime: 2020-08-17 23:11:14
+ * @Description: 
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script src="./myPromise.js"></script>
+    <script>
+        let pro = new myPromise((resolve,reject)=>{
+            throw new Error ("完成")
+            resolve(1)
+        })
+        console.log(pro)
+    </script>
+</body>
+</html>
