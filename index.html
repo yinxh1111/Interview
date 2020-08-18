@@ -2,24 +2,36 @@
  * @Author: yxh
  * @Date: 2020-08-17 21:59:00
  * @LastEditors: yxh
- * @LastEditTime: 2020-08-17 23:11:14
+ * @LastEditTime: 2020-08-18 22:04:16
  * @Description: 
 -->
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
     <script src="./myPromise.js"></script>
     <script>
-        let pro = new myPromise((resolve,reject)=>{
-            throw new Error ("完成")
-            resolve(1)
+        let pro = new myPromise((resolve, reject) => {
+            // throw new Error ("完成")
+            // resolve(1)
+            // reject(1)
+            setTimeout(() => { reject(1) }, 1000)
         })
+        pro.then(data=>console.log(1,data))
+        pro.then(data=>console.log(2,data))
+        pro.then(data=>console.log(3,data))
+        pro.then(data => console.log(4,data), data => console.log(data, "---"))
+        pro.catch(err=>console.log(10,err))
+        pro.catch(err=>console.log(11,err))
+        pro.catch(err=>console.log(12,err))
         console.log(pro)
     </script>
 </body>
+
 </html>
