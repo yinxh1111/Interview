@@ -2,7 +2,7 @@
  * @Author: yxh
  * @Date: 2020-08-17 21:59:00
  * @LastEditors: yxh
- * @LastEditTime: 2020-08-18 22:04:16
+ * @LastEditTime: 2020-09-01 08:28:33
  * @Description: 
 -->
 <!DOCTYPE html>
@@ -23,13 +23,13 @@
             // reject(1)
             setTimeout(() => { reject(1) }, 1000)
         })
-        pro.then(data=>console.log(1,data))
-        pro.then(data=>console.log(2,data))
-        pro.then(data=>console.log(3,data))
-        pro.then(data => console.log(4,data), data => console.log(data, "---"))
-        pro.catch(err=>console.log(10,err))
-        pro.catch(err=>console.log(11,err))
-        pro.catch(err=>console.log(12,err))
+        pro.then(data => console.log(1, data))
+        pro.then(data => console.log(2, data))
+        pro.then(data => console.log(3, data))
+        pro.then(data => console.log(4, data), data => console.log(data, "---"))
+        pro.catch(err => console.log(10, err))
+        pro.catch(err => console.log(11, err))
+        pro.catch(err => console.log(12, err))
         console.log(pro)
     </script>
 </body>
