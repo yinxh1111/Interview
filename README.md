@@ -2,7 +2,7 @@
  * @Author: yxh
  * @Date: 2020-08-02 23:15:50
  * @LastEditors: yxh
- * @LastEditTime: 2020-08-17 22:28:13
+ * @LastEditTime: 2020-09-05 10:48:03
  * @Description: 
 -->
 
@@ -53,11 +53,17 @@ Array. prototype. map 使用时, 只有数组中被初始化过的元素才会�
 6. 第三次挥手:服务器已传输完毕,再次发送FIN通知客户端,数据已传输完毕
 7. 第四次挥手:客户端再次发送ACK,进入TIME_WAIT状态;服务器和客户端断开连接
 
-## get和post请求在缓存方面的区别
+## get和post请求的区别以及在缓存方面的区别
 
 1. 缓存一般只适用于那些不会更新服务端数据的请求
 2. 一般get请求都是查找请求,不会对服务器资源数据造成修改
-3. 而post请求一般会对服务器数据造成修改,所以一般会对get请求进行缓存,很少对post请求进行缓存
+3. 而post请求一般会对服务器数据造成修改,所以一般会对get请求进行缓存,很少对post请求进行缓存  
+4. get和post请求的区别:由于服务器对get和post进行了差异化的处理  
+5. get请求一般没有请求体(从path中读取),而post有
+6. get请求由于业务数据放在地址中,安全性较差
+7. get请求传递业务数据有限(主要是地址栏受限),post一般来说是无限的,除非服务器限制
+8. get请求易于分享页面内容(请求业务数据在地址栏中,而post请求的业务数据在请求体中)
+9. 刷新页面,会已之前的请求方式再次请求
 
 ## websocket和ajax轮询
 
@@ -151,4 +157,56 @@ Array. prototype. map 使用时, 只有数组中被初始化过的元素才会�
 
 重排属性：height、line-height、font-size、border  
 
-重绘属性：height、line-height、font-size 、border、background-color、visibility
+重绘属性：height、line-height、font-size 、border、background-color、visibility  
+## JS异步的解决方案  
+[参考原文](https://www.cnblogs.com/zuobaiquan01/p/8477322.html)
+1. 回调模式(callback)  
+    
+```js
+function f1(callback){
+　　setTimeout(function () {
+　　　　// f1的任务代码
+　　　　callback();
+　　}, 1000); //异步回调有setTimeout函数,同步回调则没有
+}// 执行f1(f2)  
+```  
+  - 其优缺点,优点:简单、容易理解和部署，缺点是不利于代码的阅读和维护，各个部分之间高度耦合（Coupling），流程会很混乱，而且每个任务只能指定一个回调函数.  
+2. 事件监听  
+   通过事件来驱动函数  
+   首先为f1绑定事件```f1.on("done",f2)```,然后触发事件  
+   ```js
+    function f1(){
+    setTimeout(function(){
+       //f1的任务代码
+       f1.trigger('done');  
+    },1000);
+   }
+   ```
+   - 这种方法的优点：比较容易理解，可以绑定多个事件，每一个事件可以指定多个回调函数，而且可以去耦合，有利于实现模块化。
+
+    - 这种方法的缺点：整个程序都要变成事件驱动型，运行流程会变得不清晰。  
+    >注意通过onclick方法绑定事件,只有最后一个事件会被添加,而通过attachEvent和addEventLister方法则可以绑定多个事件(但两者的执行顺序有点区别,第一种是倒叙执行,即后绑定先执行,第二种则需看第三个参数,默认为false,和上面执行顺序一样,为true则相反)  
+3. 发布/订阅模式  
+   我们假定，存在一个"信号中心"，某个任务执行完成，就向信号中心"发布"（publish）一个信号，其他任务可以向信号中心"订阅"（subscribe）这个信号，从而知道什么时候自己可以开始执行。这就叫做"发布/订阅模式"（publish-subscribe pattern），又称"观察者模式"（observer pattern）。  
+   首先向订阅中心订阅信号(采用jQuery)  
+   ```jQuery.subscribe("done",f2)```  
+   然后f1执行以下代码  
+    ```js
+    function f1(){
+        setTimeout(function () {
+    　　　　// f1的任务代码
+    　　　　jQuery.publish("done");
+    　　}, 1000);
+    } //f1代码执行完毕向订阅中心发布done信号,从而执行f2函数
+    ```  
+    - 这种方法的性质与"事件监听"类似，但是明显优于后者。因为我们可以通过查看"消息中心"，了解存在多少信号、每个信号有多少订阅者，从而监控程序的运行。
+4. promise  
+5. async/await  
+## Vue组件的通信  
+[原文链接](https://segmentfault.com/a/1190000019208626)  
+1. props/$emit(父子组件之间的通信)
+2. $emit/$on(EventBus)
+3. Vuex(action(dispatch),mutation(commit))
+4. $attrs/$listers($attrs除了props属性)
+5. provide/inject(简单提供以及组件,不会是响应式数据,需要响应式数据时,需要在provide时用Vue.observable()包裹一下)
+6. $parent/$children与ref
