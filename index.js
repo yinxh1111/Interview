@@ -1,24 +1,28 @@
-/*
- * @Author: yxh
- * @Date: 2020-08-03 23:24:49
- * @LastEditors: yxh
- * @LastEditTime: 2020-08-03 23:34:38
- * @Description: 
- */
-function inherit(Origin, Target) {
-    function F() { }
-    F.prototype = Origin.prototype
-    Target.prototype = new F()
-    Target.prototype.constructor = Target
-    //以后可以看此函数具体继承自谁
-    Target.prototype.uber = Origin.prototype
+function instance_of(L, R) {//L 表示左表达式，R 表示右表达式
+    var O = R.prototype;// 取 R 的显示原型
+    L = L.__proto__;// 取 L 的隐式原型
+    while (true) {
+        if (L === null)
+            return false;
+        if (O === L)// 这里重点：当 O 严格等于 L 时，返回 true
+            return true;
+        L = L.__proto__;
+    }
 }
-function Father (){
-
-}
-//改变原型链的时候一定要在new之前
-Father.prototype.lastName = "yin"
-var father = new Father()
-function Son(){}
-inherit(Father,Son)
-var son = new Son()
+//比如
+Foo instanceof Foo
+// 为了方便表述，首先区分左侧表达式和右侧表达式
+FooL = Foo, FooR = Foo;
+// 下面根据规范逐步推演
+O = FooR.prototype = Foo.prototype
+L = FooL.__proto__ = Function.prototype
+// 第一次判断
+O != L
+// 循环再次查找 L 是否还有 __proto__
+L = Function.prototype.__proto__ = Object.prototype
+// 第二次判断
+O != L
+// 再次循环查找 L 是否还有 __proto__
+L = Object.prototype.__proto__ = null
+// 第三次判断
+L == null
