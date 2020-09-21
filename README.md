@@ -2,7 +2,7 @@
  * @Author: yxh
  * @Date: 2020-08-02 23:15:50
  * @LastEditors: yxh
- * @LastEditTime: 2020-09-05 10:48:03
+ * @LastEditTime: 2020-09-19 22:18:54
  * @Description: 
 -->
 
@@ -209,4 +209,21 @@ function f1(callback){
 3. Vuex(action(dispatch),mutation(commit))
 4. $attrs/$listers($attrs除了props属性)
 5. provide/inject(简单提供以及组件,不会是响应式数据,需要响应式数据时,需要在provide时用Vue.observable()包裹一下)
-6. $parent/$children与ref
+6. $parent/$children与ref  
+## 页面布局
+1. 三栏布局:flex,position,grid,float,
+2. 获取dom元素的宽高  
+    1. dom.style.width/height(只能获取行间样式的)
+    2. dom.currentStyle.width/height(只适用于IE)
+    3. window.getComputedStyle(dom).width/height(适用于Chrome等)
+    4. dom.getBoundingClientRect().width/height(会获取当前dom的完整信息,包括top,left,width,height等)
+3. BFC
+4. 自定义事件
+```js
+ var eve = new Event('custome'); //new CustomEvent可以传递参数
+        const ev =  document.getElementsByClassName('children')[0]
+        ev.addEventListener('custome',function(){
+            console.log("custome")
+        })
+        ev.dispatchEvent(eve)
+```

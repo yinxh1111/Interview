@@ -2,7 +2,7 @@
  * @Author: yxh
  * @Date: 2020-09-05 11:32:00
  * @LastEditors: yxh
- * @LastEditTime: 2020-09-05 12:41:29
+ * @LastEditTime: 2020-09-19 22:17:08
  * @Description: 
 -->
 <!DOCTYPE html>
@@ -37,5 +37,13 @@
     <div class="content">
         <div class="children"></div>
     </div>
+    <script>
+        var eve = new Event('custome');
+        const ev =  document.getElementsByClassName('children')[0]
+        ev.addEventListener('custome',function(){
+            console.log("custome")
+        })
+        ev.dispatchEvent(eve)
+    </script>
 </body>
 </html>
